@@ -8,7 +8,7 @@ $es_admin = 0;
 if (isset($_POST['login'])) {	
 		if (isset($_POST['user']) && isset($_POST['pass'])) {
 			$user = $_POST['user'];
-			
+			$pass = $_POST['pass'];
 			if ($user == htmlspecialchars($user) &&
 				$user == strip_tags($user) &&
 				$pass == htmlspecialchars($pass) &&
@@ -39,13 +39,13 @@ if (isset($_POST['login'])) {
 						
 					} else {
 						$es_admin = 0;
-						$consulta_preparada2 = mysqli_prepare($link, "SELECT id, usuario FROM usuarios WHERE id = ?");
+						$consulta_preparada2 = mysqli_prepare($link, "SELECT id, user FROM usuarios WHERE id = ?");
 						mysqli_stmt_bind_param($consulta_preparada2, 'i', $row['id']);
 						mysqli_stmt_execute($consulta_preparada2);
 						$res2 = $consulta_preparada2->get_result();
 						$row2 = $res2->fetch_assoc();
 						$_SESSION['id'] = $row2['id'];
-						$_SESSION['nombrelogin'] = $row2['usuario'];						
+						$_SESSION['user'] = $row2['user'];						
 					}
 				} else {
 					$error = 1;
